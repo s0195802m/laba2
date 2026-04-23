@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №2 — HTTP-запросы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h2>Задание 2. Работа с HTTP-протоколом</h2>
+            
+        </div>
+    </header>
+
+    <main class="container">
+<section class="task">
+            <h3>📁 Процесс настройки, загрузки файлов и работа с Git</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Ниже представлены вспомогательные скриншоты: список файлов задания, инициализация Git-репозитория, клонирование на сервер.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="0.png" alt="Список файлов в локальной папке laba2">
+                    <figcaption>Локальные файлы: index.php, скриншоты, FileZilla.png, Putty.png, file.tar.gz</figcaption>
+                </figure>
+                <figure>
+                    <img src="1.png" alt="Git init, add, commit, push для laba2">
+                    <figcaption>Инициализация Git, добавление файлов, коммит и отправка на GitHub</figcaption>
+                </figure>
+                <figure>
+                    <img src="2.png" alt="Клонирование репозитория laba2 на сервер">
+                    <figcaption>git clone репозитория и копирование файлов в ~/www/hw2</figcaption>
+                </figure>
+            </div>
+        </section>
+        <!-- ========== Пункт 1 ========== -->
+        <section class="task">
+            <h3>1️⃣ Получение главной страницы методом GET в протоколе HTTP 1.0</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен GET-запрос к корню сайта (<code>/</code>) с указанием протокола HTTP/1.0. Сервер отвечает кодом 200 OK, возвращает HTML-страницу и заголовки, включая дату, тип сервера и длину контента.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="3.png" alt="GET / HTTP/1.0">
+                    <figcaption>GET / HTTP/1.0 — ответ сервера с главной страницей</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 2 ========== -->
+        <section class="task">
+            <h3>2️⃣ Получение внутренней страницы методом GET в протоколе HTTP 1.1</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен GET-запрос к <code>/hw2/index.php</code> с протоколом HTTP/1.1 и заголовком Host. Сервер возвращает код 404 Not Found (так как файл обрабатывается PHP-скриптом) и выводит массив <code>Array()</code> и строку "Привет, мир!".</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="4.png" alt="GET /hw2/index.php HTTP/1.1">
+                    <figcaption>GET /hw2/index.php HTTP/1.1 — вывод PHP-скрипта</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 3 ========== -->
+        <section class="task">
+            <h3>3️⃣ Определение размера файла file.tar.gz без его скачивания</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Использован метод <code>HEAD</code> к файлу <code>/hw2/file.tar.gz</code>. В ответе сервер возвращает заголовок <code>Content-Length: 11335</code> байт, который и является размером файла. Сам файл не передаётся.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="5.png" alt="HEAD /hw2/file.tar.gz HTTP/1.1">
+                    <figcaption>HEAD-запрос — получен Content-Length: 11335 байт</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 4 ========== -->
+        <section class="task">
+            <h3>4️⃣ Определение медиатипа ресурса /image.png</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен HEAD-запрос к <code>/hw2/image.png</code>. В ответе сервер указывает <code>Content-Type: image/png</code>, что и является медиатипом (MIME-типом) ресурса.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="6.png" alt="HEAD /hw2/image.png HTTP/1.1">
+                    <figcaption>HEAD-запрос — Content-Type: image/png</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 5 ========== -->
+        <section class="task">
+            <h3>5️⃣ Отправка комментария на сервер по адресу /index.php (метод POST)</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен POST-запрос на <code>/hw2/index.php</code> с телом <code>comment=Hello</code>. Указаны заголовки <code>Content-Type: application/x-www-form-urlencoded</code> и <code>Content-Length: 14</code>. Сервер отвечает массивом <code>Array( [comment] => Hello )</code> и строкой "Привет, мир!".</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="7.png" alt="POST /hw2/index.php с комментарием">
+                    <figcaption>POST-запрос — отправлен комментарий, сервер его распознал</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 6 ========== -->
+        <section class="task">
+            <h3>6️⃣ Получение первых 100 байт файла /file.tar.gz</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен GET-запрос к <code>/hw2/file.tar.gz</code> с заголовком <code>Range: bytes=0-99</code>. Сервер возвращает код <code>206 Partial Content</code>, заголовок <code>Content-Range: bytes 0-99/11335</code> и сами первые 100 байт файла.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="8.png" alt="GET с Range: bytes=0-99">
+                    <figcaption>Range-запрос — получены первые 100 байт файла (206 Partial Content)</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ========== Пункт 7 ========== -->
+        <section class="task">
+            <h3>7️⃣ Определение кодировки ресурса /index.php</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> Отправлен HEAD-запрос к <code>/hw2/index.php</code>. В ответе сервер возвращает заголовок <code>Content-Type: text/html; charset=UTF-8</code>, что указывает на кодировку UTF-8.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="9.png" alt="HEAD /hw2/index.php — определение кодировки">
+                    <figcaption>HEAD-запрос — Content-Type: text/html; charset=UTF-8</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Дополнительные скриншоты с процессом работы (пункты задания не требуют, но показывают процесс) -->
+        <section class="task">
+            <h3>📁 Процесс настройки, загрузки файлов и работа с Git</h3>
+            <div class="task-description">
+                <p><strong>Что происходит:</strong> загрузка на git, обновление файлов через <code>git pull</code> и копирование в каталог <code>~/www/hw2</code>.</p>
+            </div>
+            <div class="screenshots">
+                <figure>
+                    <img src="10.png" alt="Добавление скриншотов в Git и push">
+                    <figcaption>Добавлены скриншоты 0–9.png, сделан коммит и выполнен push в GitHub</figcaption>
+                </figure>
+                <figure>
+                    <img src="11.png" alt="git pull на сервере для получения новых скриншотов">
+                    <figcaption>На сервере выполнен git pull, получены все скриншоты, затем копирование в www/hw2</figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
